@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
 	<head>
 		<title>Piikkilista (dev)</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -7,80 +7,118 @@
 		<script src="source/jquery.fancybox.pack.js?v=2.1.0"></script>
 		<link rel="stylesheet" href="source/jquery.fancybox.css?v=2.1.0" type="text/css" media="screen" />
 		<style>
-			
 		</style>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var loginContainer = $('.login');
 				//setup fancybox
-				console.log('loading ready');
 				$('.fancybox').fancybox({
-					afterClose: function() {
-						var loggedUser = $.data(loginContainer,'user');
-						console.log(loggedUser); 
-						$('.loggedUser').html('Moi '+loggedUser);
+					afterClose : function() {
+						var loggedUser = $.data(loginContainer, 'user');
+						if (loggedUser == undefined) {
+							$('.loggedUser').html('(not logged in)');
+						} else {
+							$('.loggedUser').html('Moi ' + loggedUser);
+						}
 					}
 				});
-				
-				//force user selection
-				
-				if( $.data(loginContainer,'user') == undefined ) $('.fancybox').click();
-				
+
+				//force user selection, if not "logged" in
+				if ($.data(loginContainer, 'user') == undefined)
+					$('.fancybox').click();
+
 				//read user selection
-				$('.user').click(function(){
-					console.log($(this).attr('name'));
-					$.data(loginContainer,'user',$(this).attr('name'));
+				$('.user').click(function() {
+					$.data(loginContainer, 'user', $(this).attr('name'));
+					$.data(loginContainer, 'accountValue', 42);
 					$.fancybox.close();
+					refresh();
 				});
-				
+
+				//update all data fields and save data to database
+				function refresh() {
+					$('#accountValue').html($.data(loginContainer, 'accountValue'));
+				}
+
+				//buying a product functionality
+				$('.product').click(function() {
+					var productPrice = parseFloat($(this).attr('value'));
+					if (!$.isNumeric(productPrice))
+						productPrice = 0;
+					var oldValue = $.data(loginContainer, 'accountValue');
+					var newValue = oldValue - productPrice;
+					$.data(loginContainer, 'accountValue', newValue);
+					refresh();
+				});
+
 			});
-		</script> 
+		</script>
 	</head>
 	<body>
 
-    <div id="login" style="display: none;">
-		<h1>Valitse piikki</h1>
-		<section name="login">
-			<button type="button" class="user" name="testi">testi</button>
-			<button type="button" class="user" name="oldskool">oldskool</button>
-			<button type="button" class="user" name="stream.ry">stream.ry</button>
-		</section>
-    </div>
+		<div id="login" style="display: none;">
+			<h1>Valitse piikki</h1>
+			<section name="login">
+				<button type="button" class="user" name="testi">
+					testi
+				</button>
+				<button type="button" class="user" name="oldskool">
+					oldskool
+				</button>
+				<button type="button" class="user" name="stream.ry">
+					stream.ry
+				</button>
+			</section>
+		</div>
 
 		<header>
 			<h1>Piikkilista</h1>
-			<p class="loggedUser"></p>
-			<button type="button" href="#login" class="fancybox">Vaihda piikkiä</button>
+			<span class="loggedUser"> (not logged in) </span>
+			<button type="button" href="#login" class="fancybox">
+				Vaihda piikkiä
+			</button>
 		</header>
 		<section name="store">
-			<article>
+			<article class="cat1">
 				<h2>juomat1</h2>
 				<p>
-					<button type="button" class="product cat1" name="tuote1">tuote1</button>
-					<button type="button" class="product cat1" name="tuote2">tuote2</button>
-					<button type="button" class="product cat1" name="tuote3">tuote3</button>
+					<button type="button" class="product cat1" name="tuote1" value="1">
+						tuote1
+					</button>
+					<button type="button" class="product cat1" name="tuote2" value="3.5">
+						tuote2
+					</button>
+					<button type="button" class="product cat1" name="tuote3" value="2">
+						tuote3
+					</button>
 				</p>
 			</article>
-			<article>
+			<article class="cat2">
 				<h2>juomat2</h2>
 				<p>
-					<button type="button" class="product cat2" name="tuote1">tuote1</button>
-					<button type="button" class="product cat2" name="tuote2">tuote2</button>
-					<button type="button" class="product cat2" name="tuote3">tuote3</button>
+					<button type="button" class="product cat2" name="tuote1">
+						tuote1
+					</button>
+					<button type="button" class="product cat2" name="tuote2">
+						tuote2
+					</button>
+					<button type="button" class="product cat2" name="tuote3">
+						tuote3
+					</button>
 				</p>
 			</article>
-						
+
 		</section>
 		<aside name="stats">
 			<article>
 				<h2>Stats</h2>
 				<p>
-					testidataa
+					Saldo: <span id="accountValue">0</span>
 				</p>
 			</article>
 		</aside>
 		<footer>
-			
+
 		</footer>
 	</body>
 </html>
