@@ -30,9 +30,8 @@
 				//read user selection
 				$('.user').click(function() {
 					$.data(loginContainer, 'user', $(this).attr('name'));
-					$.data(loginContainer, 'accountValue', 42);
+					loadData();
 					$.fancybox.close();
-					refresh();
 				});
 
 				//update all data fields and save data to database
@@ -51,7 +50,7 @@
 						'user':$.data(loginContainer,'user'),
 						'amount':price
 					}, function(data) {
-						$.data(loginContainer, 'accountValue', parseInt(data));
+						$.data(loginContainer, 'accountValue', parseFloat(data));
 						refresh();
 						console.log(data);
 					},'json');
@@ -61,7 +60,7 @@
 					$.post('data.php',{
 						'user':$.data(loginContainer,'user')
 					}, function(data) {
-						$.data(loginContainer, 'accountValue', parseInt(data));
+						$.data(loginContainer, 'accountValue', parseFloat(data));
 						refresh();
 						console.log(data);
 					},'json');
