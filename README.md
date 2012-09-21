@@ -13,3 +13,6 @@ Requirements:
 	- format is single-line JSON:
 	{"user":{"accountValue":float_value}}
 	- MUST BE WRITABLE BY APACHE or other http-server
+
+	storage.log
+	- empty file with write permission
