@@ -54,14 +54,17 @@ $(document).ready(function() {
 	//buying a product functionality
 	$('.product').click(function() {
 		var productPrice = parseFloat($(this).attr('value'));
-		saveData(productPrice);
+		var productName = $(this).attr('name');
+	console.log(productName);
+		saveData(productName, productPrice);
 	});
 
-	function saveData(price) {
+	function saveData(product, price) {
 		$.post('data.php', {
 			'action' : 'save',
 			'user' : $.data(loginContainer, 'user'),
-			'amount' : price
+			'amount' : price,
+			'product': product
 		}, function(data) {
 			$.data(loginContainer, 'accountValue', parseFloat(data['accountValue']));
 			refresh();
