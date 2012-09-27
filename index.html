@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Piikkilista (dev)</title>
+		<title>Piikkilista (omnibyte)</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
 		<script src="source/jquery.fancybox.pack.js?v=2.1.0"></script>
@@ -17,7 +17,7 @@
 			}
 			.category {
 				display: inline-table;
-				width: 80%;
+				width: 100%;
 				min-height: 400px;
 				border: solid 1px black;
 				text-align: center;
@@ -43,6 +43,7 @@
 			.user {
 				width: 60%;
 				font-size: 2em;
+				margin-bottom: 0.5em;
 			}
 		</style>
 		<script src="js/piikki.js" type="text/javascript"></script>
@@ -58,8 +59,8 @@
 
 		<header>
 			<h1>Piikkilista</h1>
-			<span class="loggedUser"> (not logged in) </span>
-			<button style="display:none;" type="button" href="#login" class="fancybox">
+			<span class="loggedUser"> (not logged in) </span><br />
+			<button style="width:50%;font-size:1.5em;" type="button" href="#login" class="fancybox">
 				Vaihda piikkiä
 			</button>
 		</header>
@@ -69,6 +70,12 @@
 				<p>
 					Saldo: <span id="accountValue">0</span>
 				</p>
+				<p>
+					Lataus piikkiin: <br />
+					Siirrä tilille <strong>FI50 8330 1710 1973 87</strong> summa rahaa <br />
+					Ilmoita summa spiikille irkissä tai henk. koht.<br/>
+					Profit!
+				</p>
 			</article>
 		</aside>
 
@@ -76,14 +83,17 @@
 			<article class="category">
 				<h2>juomat</h2>
 				<p>
-					<button type="button" class="product" name="tuote1" value="1.25">
-						KALJA 1.25e
+					<button type="button" class="product" name="mf_es" value="1">
+						MF / ES 1
 					</button>
-					<button type="button" class="product" name="tuote2" value="1.5">
-						SIDU 1.5e
+					<button type="button" class="product" name="coke.33" value="0.9">
+						Cola (.33) 0.9
 					</button>
-					<button type="button" class="product" name="tuote3" value="2.25">
-						LONGU 2.25e
+					<button type="button" class="product" name="freeway.33" value="0.5">
+						Freeway (.33) 0.5
+					</button>
+					<button type="button" class="product" name="olut.33" value="1">
+						Olut (.33) 1
 					</button>
 				</p>
 			</article>

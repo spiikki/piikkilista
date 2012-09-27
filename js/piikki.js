@@ -20,8 +20,8 @@ $(document).ready(function() {
 	$('.fancybox').fancybox({
 		autoSize : false,
 		beforeLoad : function() {
-			this.width = $(document).width() / 2;
-			this.height = $(document).height() / 1.5;
+			this.width = $(document).width() / 1.5;
+			this.height = $(document).height();
 		},
 		afterClose : function() {
 			var loggedUser = $.data(loginContainer, 'user');
