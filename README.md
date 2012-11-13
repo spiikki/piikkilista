@@ -9,11 +9,13 @@ uses fancyBox ( http://fancyapps.com/fancybox/ )
 Copyright (c) 2012 Janis Skarnelis
 
 Requirements:
+
 	Apache
 	PHP (developed and tested on PHP5)
 	JavaScript capable browser
 
 Required files:
+
 	storage.json (o+rw)
 	- JSON database
 	storage.log (o+rw)
