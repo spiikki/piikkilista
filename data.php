@@ -7,8 +7,8 @@ date_default_timezone_set('Europe/Helsinki');
 $data = file('storage.json');
 $storage = json_decode($data[0], true);
 //init log
-$logString = date('Y-m-d h:i:s');
-$logString = $logString . ' - ' . $_POST['user'] . ' tabbed: ' . $_POST['amount'];
+$logString = date('Y-m-d H:i:s');
+$logString = $logString . ' - ' . $_POST['user'] . ' tabbed a "' . $_POST['product'] . '": ' . $_POST['amount'];
 
 switch( $_POST['action'] ) {
 	case 'save':

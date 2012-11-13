@@ -7,7 +7,6 @@ $(document).ready(function() {
 		data : 'action=users',
 		dataType : 'json'
 	}).success(function(data) {
-		console.log('test');
 		$.each(data, function(i, item) {
 			$('section[name=login]').append('<button type="button" class="user" name="' + item + '">' + item + '</button>');
 		});
@@ -20,15 +19,15 @@ $(document).ready(function() {
 	$('.fancybox').fancybox({
 		autoSize : false,
 		beforeLoad : function() {
-			this.width = $(document).width() / 2;
-			this.height = $(document).height() / 1.5;
+			this.width = $(document).width() / 1.5;
+			this.height = $(document).height();
 		},
 		afterClose : function() {
 			var loggedUser = $.data(loginContainer, 'user');
 			if (loggedUser == undefined) {
 				$('.loggedUser').html('(not logged in)');
 			} else {
-				$('.loggedUser').html('Moi ' + loggedUser);
+				$('.loggedUser').html('Hello ' + loggedUser);
 			}
 		}
 	});
@@ -39,7 +38,6 @@ $(document).ready(function() {
 
 	//read user selection
 	$('.user').click(function() {
-		console.log('testi');
 		$.data(loginContainer, 'user', $(this).attr('name'));
 		loadUserData();
 		$.fancybox.close();
@@ -54,14 +52,16 @@ $(document).ready(function() {
 	//buying a product functionality
 	$('.product').click(function() {
 		var productPrice = parseFloat($(this).attr('value'));
-		saveData(productPrice);
+		var productName = $(this).attr('name');
+		saveData(productName, productPrice);
 	});
 
-	function saveData(price) {
+	function saveData(product, price) {
 		$.post('data.php', {
 			'action' : 'save',
 			'user' : $.data(loginContainer, 'user'),
-			'amount' : price
+			'amount' : price,
+			'product': product
 		}, function(data) {
 			$.data(loginContainer, 'accountValue', parseFloat(data['accountValue']));
 			refresh();
