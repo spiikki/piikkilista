@@ -3,7 +3,7 @@ Piikkilista
 a simple app for handling peoples tabs
 
 https://github.com/spiikki/piikkilista
-(c) Spiikki Sillanpää 2012
+(c) Spiikki Sillanpää 2012-2013
 
 uses fancyBox ( http://fancyapps.com/fancybox/ )
 Copyright (c) 2012 Janis Skarnelis
@@ -23,7 +23,7 @@ How-To Configure
 
 	First you have to setup storage.json. This will give you users/tabs.
 		- create JSON-file into root of piikkilista
-		- format is single-line JSON:
+		- format is JSON:
 		{"user":{"accountValue":float_value}}
 		- MUST BE WRITABLE BY APACHE or other http-server
 
