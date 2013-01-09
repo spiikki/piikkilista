@@ -32,6 +32,21 @@ $(document).ready(function() {
 		}
 	});
 
+	//setup fancybox for notify
+	$('.fancyboxNotify').fancybox({
+		autoSize : false,
+		beforeLoad : function() {
+			this.width = $(document).width() / 1.5;
+			this.height = $(document).height();
+		},
+		afterShow : function() {
+			// close after 2 seconds
+			setTimeout(function(){
+				$.fancybox.close();
+			}, 2000);
+		}
+	});
+
 	//force user selection, if not "logged" in
 	if ($.data(loginContainer, 'user') == undefined)
 		$('.fancybox').click();
@@ -45,8 +60,7 @@ $(document).ready(function() {
 
 	//update all data fields and save data to database
 	function refresh() {
-		$('#accountValue').html($.data(loginContainer, 'accountValue'));
-
+		$('.accountValue').html($.data(loginContainer, 'accountValue'));
 	}
 
 	//buying a product functionality
@@ -56,6 +70,7 @@ $(document).ready(function() {
 		saveData(productName, productPrice);
 	});
 
+	// make transaction
 	function saveData(product, price) {
 		$.post('data.php', {
 			'action' : 'save',
@@ -63,11 +78,16 @@ $(document).ready(function() {
 			'amount' : price,
 			'product': product
 		}, function(data) {
+			// update user data
 			$.data(loginContainer, 'accountValue', parseFloat(data['accountValue']));
 			refresh();
+			//notify user for successful transaction
+			notify(product);
 		}, 'json');
+		
 	}
 
+	// load users
 	function loadUserData() {
 		$.post('data.php', {
 			'action' : 'userData',
@@ -76,6 +96,13 @@ $(document).ready(function() {
 			$.data(loginContainer, 'accountValue', parseFloat(data['accountValue']));
 			refresh();
 		}, 'json');
+	}
+	
+	// display notifier after transaction 
+	function notify(productName) {
+		// set notify data
+		$('span[id="productName"]').html(productName);
+		$('.fancyboxNotify').click();
 	}
 
 });
