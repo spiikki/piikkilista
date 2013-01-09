@@ -7,7 +7,6 @@ $(document).ready(function() {
 		data : 'action=users',
 		dataType : 'json'
 	}).success(function(data) {
-		console.log('test');
 		$.each(data, function(i, item) {
 			$('section[name=login]').append('<button type="button" class="user" name="' + item + '">' + item + '</button>');
 		});
@@ -28,8 +27,23 @@ $(document).ready(function() {
 			if (loggedUser == undefined) {
 				$('.loggedUser').html('(not logged in)');
 			} else {
-				$('.loggedUser').html('Moi ' + loggedUser);
+				$('.loggedUser').html('Hello ' + loggedUser);
 			}
+		}
+	});
+
+	//setup fancybox for notify
+	$('.fancyboxNotify').fancybox({
+		autoSize : false,
+		beforeLoad : function() {
+			this.width = $(document).width() / 1.5;
+			this.height = $(document).height();
+		},
+		afterShow : function() {
+			// close after 2 seconds
+			setTimeout(function(){
+				$.fancybox.close();
+			}, 2000);
 		}
 	});
 
@@ -39,7 +53,6 @@ $(document).ready(function() {
 
 	//read user selection
 	$('.user').click(function() {
-		console.log('testi');
 		$.data(loginContainer, 'user', $(this).attr('name'));
 		loadUserData();
 		$.fancybox.close();
@@ -47,18 +60,17 @@ $(document).ready(function() {
 
 	//update all data fields and save data to database
 	function refresh() {
-		$('#accountValue').html($.data(loginContainer, 'accountValue'));
-
+		$('.accountValue').html($.data(loginContainer, 'accountValue'));
 	}
 
 	//buying a product functionality
 	$('.product').click(function() {
 		var productPrice = parseFloat($(this).attr('value'));
 		var productName = $(this).attr('name');
-	console.log(productName);
 		saveData(productName, productPrice);
 	});
 
+	// make transaction
 	function saveData(product, price) {
 		$.post('data.php', {
 			'action' : 'save',
@@ -66,11 +78,16 @@ $(document).ready(function() {
 			'amount' : price,
 			'product': product
 		}, function(data) {
+			// update user data
 			$.data(loginContainer, 'accountValue', parseFloat(data['accountValue']));
 			refresh();
+			//notify user for successful transaction
+			notify(product);
 		}, 'json');
+		
 	}
 
+	// load users
 	function loadUserData() {
 		$.post('data.php', {
 			'action' : 'userData',
@@ -79,6 +96,13 @@ $(document).ready(function() {
 			$.data(loginContainer, 'accountValue', parseFloat(data['accountValue']));
 			refresh();
 		}, 'json');
+	}
+	
+	// display notifier after transaction 
+	function notify(productName) {
+		// set notify data
+		$('span[id="productName"]').html(productName);
+		$('.fancyboxNotify').click();
 	}
 
 });

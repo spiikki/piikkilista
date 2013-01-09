@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Piikkilista (omnibyte)</title>
+		<title>Piikkilista (whoami)</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
 		<script src="source/jquery.fancybox.pack.js?v=2.1.0"></script>
@@ -45,6 +45,16 @@
 				font-size: 2em;
 				margin-bottom: 0.5em;
 			}
+			
+			section[name="notifier"] {
+				display: none;
+				text-align: center;
+			}			
+			
+			section[name="notifier"] span {
+				font-weight: bold;
+			}
+			
 		</style>
 		<script src="js/piikki.js" type="text/javascript"></script>
 		
@@ -52,7 +62,7 @@
 	<body>
 
 		<div id="login" style="display: none;">
-			<h1>Valitse piikki</h1>
+			<h1>Choose user</h1>
 			<section name="login">
 			</section>
 		</div>
@@ -61,27 +71,36 @@
 			<h1>Piikkilista</h1>
 			<span class="loggedUser"> (not logged in) </span><br />
 			<button style="width:50%;font-size:1.5em;" type="button" href="#login" class="fancybox">
-				Vaihda piikkiä
+				Change user
 			</button>
 		</header>
 		<aside name="stats">
 			<article>
 				<h2>Stats</h2>
 				<p>
-					Saldo: <span id="accountValue">0</span>
+					Saldo: <span class="accountValue">0</span>
 				</p>
 				<p>
-					Lataus piikkiin: <br />
-					Siirrä tilille <strong>FI50 8330 1710 1973 87</strong> summa rahaa <br />
-					Ilmoita summa spiikille irkissä tai henk. koht.<br/>
-					Profit!
+				General information.
 				</p>
 			</article>
 		</aside>
 
+		<section name="notifier" class="fancyboxNotify">
+			<article>
+				<h2>Transaction complete!</h2>
+				<p>
+					you bought <span id="productName">_</span>
+				</p>
+				<p>
+					you have <span class="accountValue">0</span> credits left
+				</p>
+			</article>
+		</section>
+		
 		<section name="store">
 			<article class="category">
-				<h2>juomat</h2>
+				<h2>Stuff!</h2>
 				<p>
 					<button type="button" class="product" name="mf_es" value="1">
 						Energiajuoma (0.5l) 1
@@ -95,9 +114,6 @@
 -->					<button type="button" class="product" name="freeway.33" value="0.5">
 						Freeway (0.33l) 0.5
 					</button>
-<!--					<button type="button" class="product" name="olut.33" value="1">
-						Olut (0.33l) 1
--->					</button>
 				</p>
 			</article>
 		</section>

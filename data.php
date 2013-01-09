@@ -4,8 +4,8 @@
 date_default_timezone_set('Europe/Helsinki');
 
 // load storage
-$data = file('storage.json');
-$storage = json_decode($data[0], true);
+$data = file_get_contents('storage.json');
+$storage = json_decode($data, true);
 //init log
 $logString = date('Y-m-d H:i:s');
 $logString = $logString . ' - ' . $_POST['user'] . ' tabbed a "' . $_POST['product'] . '": ' . $_POST['amount'];
@@ -46,7 +46,8 @@ switch( $_POST['action'] ) {
 		}
 		break;
 
-	case 'users':
+	//case 'users':
+	default:
 		//return users
 		echo json_encode(array_keys($storage));
 		break;
