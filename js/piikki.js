@@ -67,16 +67,22 @@ $(document).ready(function() {
 	$('.product').click(function() {
 		var productPrice = parseFloat($(this).attr('value'));
 		var productName = $(this).attr('name');
-		saveData(productName, productPrice);
+		saveData(productName, productPrice, 'sale');
+	});
+
+	//deposit to account functionality
+	$('#deposit').click(function() {
+		saveData('lataus', $('#depositValue').attr('value'), 'deposit');
 	});
 
 	// make transaction
-	function saveData(product, price) {
+	function saveData(product, price, type) {
 		$.post('data.php', {
 			'action' : 'save',
 			'user' : $.data(loginContainer, 'user'),
 			'amount' : price,
-			'product': product
+			'product': product,
+			'type' : type
 		}, function(data) {
 			// update user data
 			$.data(loginContainer, 'accountValue', parseFloat(data['accountValue']));
