@@ -8,14 +8,23 @@ $data = file_get_contents('storage.json');
 $storage = json_decode($data, true);
 //init log
 $logString = date('Y-m-d H:i:s');
-$logString = $logString . ' - ' . $_POST['user'] . ' tabbed a "' . $_POST['product'] . '": ' . $_POST['amount'];
 
 switch( $_POST['action'] ) {
 	case 'save':
+		if($_REQUEST['type'] == 'sale') {
+			$logString = $logString . ' - ' . $_POST['user'] . ' tabbed a "' . $_POST['product'] . '": ' . $_POST['amount'];
+		} else if($_REQUEST['type'] == 'deposit') {
+			$logString = $logString . ' - ' . $_POST['user'] . ' deposited ' . $_POST['amount'];
+		}
+
 		//update accountValue
 		foreach ($storage as $key => $value) {
 			if ($key == $_POST['user']) {
-				$newValue = $value['accountValue'] - floatval($_POST['amount']);
+				if($_REQUEST['type'] == 'sale') {
+					$newValue = $value['accountValue'] - floatval($_POST['amount']);
+				} else if($_REQUEST['type'] == 'deposit') {
+					$newValue = $value['accountValue'] + floatval($_POST['amount']);
+				}
 				$storage[$key]['accountValue'] = $newValue;
 
 				$logString = $logString . ' - balance: ' . $newValue;

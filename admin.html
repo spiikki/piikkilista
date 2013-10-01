@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Piikkilista (whoami)</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
+		<script src="source/jquery.fancybox.pack.js?v=2.1.0"></script>
+		<link rel="stylesheet" href="source/jquery.fancybox.css?v=2.1.0" type="text/css" media="screen" />
+		<style>
+			header {
+				display: inline-table;
+				min-width: 300px;
+			}
+			aside {
+				vertical-align: top;
+				display: inline-table;
+			}
+			.category {
+				display: inline-table;
+				width: 100%;
+				min-height: 400px;
+				border: solid 1px black;
+				text-align: center;
+				vertical-align: top;
+				border-radius: 15px;
+				-webkit-border-radius: 15px;
+				-moz-border-radius: 15px;
+				-o-border-radius: 15px;
+			}
+			.product {
+				font-size: 2em;
+				width: 80%;
+				min-height: 50px;
+				margin: 10px;
+			}
+			
+			#login {
+				width: 100%;
+				display: inline-table;
+				text-align: center;				
+			}			
+			
+			.user {
+				width: 60%;
+				font-size: 2em;
+				margin-bottom: 0.5em;
+			}
+			
+			section[name="notifier"] {
+				display: none;
+				text-align: center;
+			}			
+			
+			section[name="notifier"] span {
+				font-weight: bold;
+			}
+			
+		</style>
+		<script src="js/piikki.js" type="text/javascript"></script>
+		
+	</head>
+	<body>
+
+		<div id="login" style="display: none;">
+			<h1>Choose user</h1>
+			<section name="login">
+			</section>
+		</div>
+
+		<header>
+			<h1>Piikkilista</h1>
+			<span class="loggedUser"> (not logged in) </span><br />
+			<button style="width:50%;font-size:1.5em;" type="button" href="#login" class="fancybox">
+				Change user
+			</button>
+		</header>
+		<aside name="stats">
+			<article>
+				<h2>Stats</h2>
+				<p>
+					Saldo: <span class="accountValue">0</span>
+				</p>
+				<p>
+				General information.
+				</p>
+			</article>
+		</aside>
+
+		<section name="notifier" class="fancyboxNotify">
+			<article>
+				<h2>Transaction complete!</h2>
+				<p>
+					you bought <span id="productName">_</span>
+				</p>
+				<p>
+					you have <span class="accountValue">0</span> credits left
+				</p>
+			</article>
+		</section>
+		
+		<section name="store">
+			<article class="category">
+				<h2>AdminStuff!</h2>
+				<p>
+				Deposit credits 
+				<input id="depositValue" placeholder="0.0"/>
+				<button id="deposit">Deposit!</button>
+				</p>
+			</article>
+		</section>
+		<footer>
+
+		</footer>
+	</body>
+</html>
